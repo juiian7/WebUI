@@ -1,4 +1,4 @@
-import { button, div, h1, h2, span, p, dynamic, input, form } from "./dist/index.js";
+import { button, div, h1, h2, span, p, dynamic, input, form, list } from "./dist/index.js";
 
 let counter = 0;
 
@@ -24,7 +24,7 @@ let todoComponent = div(
         () => [todos]
     ),
     dynamic(
-        () => div(...todos.map((todo) => p(todo))),
+        () => list(todos.map((todo) => p(todo))),
         () => [todos]
     )
 );
