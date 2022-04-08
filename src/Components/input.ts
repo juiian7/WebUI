@@ -14,6 +14,16 @@ class Input extends Base<HTMLInputElement> {
         return this;
     }
 
+    public placeholder(placeholder: string) {
+        this.HTML.placeholder = placeholder;
+        return this;
+    }
+
+    public type(type: string) {
+        this.HTML.type = type;
+        return this;
+    }
+
     public focus() {
         this.HTML.autofocus = true;
         return this;
