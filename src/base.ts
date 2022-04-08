@@ -9,7 +9,7 @@ interface Event {
 
 export default abstract class Base<T extends HTMLElement> {
     private _htmlElement: T;
-    private _htmlType: string;
+    private _htmlType: keyof HTMLElementTagNameMap;
     protected _children: Elem[] = [];
 
     protected get _style(): CSSStyleDeclaration {
@@ -18,7 +18,7 @@ export default abstract class Base<T extends HTMLElement> {
 
     // protected _events: Event[];
 
-    constructor(htmlType: string, ...children: Elem[]) {
+    constructor(htmlType: keyof HTMLElementTagNameMap, ...children: Elem[]) {
         this._htmlType = htmlType;
 
         this._htmlElement = document.createElement(this._htmlType) as T;
@@ -44,21 +44,16 @@ export default abstract class Base<T extends HTMLElement> {
         });
     }
 
-    get HTML(): T {
+    public get HTML(): T {
         return this._htmlElement;
     }
 
-    color(color: string) {
+    public color(color: string) {
         this._style.color = color;
         return this;
     }
 
-    width(width: string) {
-        this._style.width = width;
-        return this;
-    }
-
-    on(type: keyof HTMLElementEventMap, handler: (this: Base<T>, ev: Event) => void) {
+    public on(type: keyof HTMLElementEventMap, handler: (this: Base<T>, ev: Event) => void) {
         this._htmlElement.addEventListener(type, (ev) => {
             handler.bind(this)(ev);
             update();
