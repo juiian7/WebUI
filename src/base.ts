@@ -1,4 +1,5 @@
 import { update } from "./dynamic.js";
+import { Theme } from "./theme.js";
 
 export type Elem = Base<HTMLElement> | Node | string;
 
@@ -10,6 +11,9 @@ interface Event {
 export default abstract class Base<T extends HTMLElement> {
     private _htmlElement: T;
     private _htmlType: string;
+
+    private _theme: Theme;
+
     protected _children: Elem[] = [];
 
     protected get _style(): CSSStyleDeclaration {
@@ -20,8 +24,9 @@ export default abstract class Base<T extends HTMLElement> {
 
     constructor(htmlType: string, ...children: Elem[]) {
         this._htmlType = htmlType;
-
         this._htmlElement = document.createElement(this._htmlType) as T;
+
+        this._theme = new Theme();
 
         this.append(...children);
     }
@@ -63,6 +68,14 @@ export default abstract class Base<T extends HTMLElement> {
             handler.bind(this)(ev);
             update();
         });
+        return this;
+    }
+
+    public applyTheme(theme: Theme) {
+        this._theme = theme;
+
+        this._theme.applyOn(this._htmlElement);
+
         return this;
     }
 }

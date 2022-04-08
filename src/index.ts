@@ -9,3 +9,5 @@ export { span } from "./Components/span.js";
 export { button } from "./Components/button.js";
 
 export { dynamic, update } from "./dynamic.js";
+
+export { theme } from "./theme.js";
