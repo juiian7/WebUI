@@ -1,7 +1,6 @@
-import { button, div, h1, h2, span, p } from "./dist/index.js";
+import { button, div, h1, h2, span, p, dynamic, update } from "./dist/index.js";
 
 let counter = 0;
-let counterLabel; //= span("Counter: 0");
 
 let rootDiv = div(
     h1("Hoi!"),
@@ -11,27 +10,21 @@ let rootDiv = div(
 
     p("This is a paragraph.").on("dblclick", () => alert("Hello Universe")),
 
-    //counterLabel,
-    (counterLabel = span("Counter: 0")),
-    //ref('_refname',span(`Counter: ${counter}`)),
+    dynamic(
+        () => p(`Counter: ${counter}`),
+        () => [counter]
+    ),
 
     button("Click me!")
-        .on("click", () => {
-            console.log(this); //TODO: Fix?
+        .on("click", function () {
+            console.log(this);
+            this.color("blue");
 
             counter++;
-            counterLabel.textContent = "Counter: " + counter;
-
-            update();
         })
-        .color("#44DD44")
+        .color("#44DD44"),
+
+    button("Reset").on("click", () => window.confirm("You sure?") && (counter = 0))
 );
 
-console.log(rootDiv);
-console.log(rootDiv.HTML);
-
-update();
-function update() {
-    document.body.innerHTML = "";
-    document.body.append(rootDiv.HTML);
-}
+document.body.append(rootDiv.HTML);

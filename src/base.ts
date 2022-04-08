@@ -1,3 +1,5 @@
+import { update } from "./dynamic.js";
+
 export type Elem = Base<HTMLElement> | Node | string;
 
 interface Event {
@@ -6,40 +8,44 @@ interface Event {
 }
 
 export default abstract class Base<T extends HTMLElement> {
+    private _htmlElement: T;
     private _htmlType: string;
-    protected _children: Elem[];
-    protected _style: CSSStyleDeclaration;
-    protected _events: Event[];
+    protected _children: Elem[] = [];
+
+    protected get _style(): CSSStyleDeclaration {
+        return this._htmlElement.style;
+    }
+
+    // protected _events: Event[];
 
     constructor(htmlType: string, ...children: Elem[]) {
         this._htmlType = htmlType;
-        this._children = children;
-        this._events = [];
-        this._style = document.createElement(htmlType).style;
+
+        this._htmlElement = document.createElement(this._htmlType) as T;
+
+        this.append(...children);
     }
 
-    append(...children: Base<HTMLElement>[]) {
+    public append(...children: Elem[]) {
         this._children.push(...children);
+
+        this.render();
+    }
+
+    private render() {
+        // append children
+        this._htmlElement.innerHTML = "";
+        this._children.forEach((e: Elem) => {
+            if (e instanceof Base) {
+                this._htmlElement.append(e.HTML);
+            } else if (e instanceof Node || typeof e === "string") {
+                this._htmlElement.append(e);
+            }
+        });
     }
 
     get HTML(): T {
-        let element = document.createElement(this._htmlType) as T;
-
-        // apply styles
-        element.style.color = this._style.color;
-
-        // connect events
-        this._events.forEach((event) => element.addEventListener(event.type, event.handler as any));
-
-        // append children
-        this._children.forEach((e: Elem) => {
-            if (e instanceof Base) {
-                element.append(e.HTML);
-            } else if (e instanceof Node || typeof e === "string") {
-                element.append(e);
-            }
-        });
-        return element;
+        return this._htmlElement;
     }
 
     color(color: string) {
@@ -52,8 +58,11 @@ export default abstract class Base<T extends HTMLElement> {
         return this;
     }
 
-    on(type: keyof HTMLElementEventMap, handler: (this: HTMLElement, ev: Event) => void) {
-        this._events.push({ type, handler });
+    on(type: keyof HTMLElementEventMap, handler: (this: Base<T>, ev: Event) => void) {
+        this._htmlElement.addEventListener(type, (ev) => {
+            handler.bind(this)(ev);
+            update();
+        });
         return this;
     }
 }
