@@ -38,7 +38,7 @@ let rootDiv = div(
     p("This is a paragraph.").on("dblclick", () => alert("Hello Universe")),
 
     dynamic(
-        () => p(`Counter: ${counter}`),
+        () => p(`Counter: ${counter} `, counter % 2 === 0 && "is Even"),
         () => [counter]
     ),
 
@@ -56,3 +56,4 @@ let rootDiv = div(
 );
 
 document.body.append(rootDiv.HTML);
+console.log(false ?? div("Hello").HTML);
