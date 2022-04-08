@@ -10,4 +10,8 @@ export { form } from "./Components/form.js";
 export { button } from "./Components/button.js";
 export { input } from "./Components/input.js";
 
+export { img } from "./Components/img.js";
+
+export { element } from "./Components/element.js";
+
 export { dynamic, update } from "./dynamic.js";
