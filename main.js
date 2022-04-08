@@ -56,4 +56,3 @@ let rootDiv = div(
 );
 
 document.body.append(rootDiv.HTML);
-console.log(false ?? div("Hello").HTML);
