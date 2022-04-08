@@ -24,4 +24,9 @@ class Img extends Base<HTMLImageElement> {
         this.HTML.width = width;
         return this;
     }
+
+    public height(height: number) {
+        this.HTML.height = height;
+        return this;
+    }
 }
