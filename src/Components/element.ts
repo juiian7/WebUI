@@ -9,7 +9,7 @@ class GenericElement<T extends HTMLElement> extends Base<T> {
         super(tagname, ...children);
     }
 
-    public attribte(name: string, value: string) {
+    public attribute(name: string, value: string) {
         this.HTML[name] = value;
         return this;
     }
