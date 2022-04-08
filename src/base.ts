@@ -54,6 +54,11 @@ export default abstract class Base<T extends HTMLElement> {
         return this;
     }
 
+    public class(...classes: string[]) {
+        this._htmlElement.classList.add(...classes);
+        return this;
+    }
+
     public on(type: keyof HTMLElementEventMap, handler: (this: Base<T>, ev: Event) => void) {
         this._htmlElement.addEventListener(type, (ev) => {
             handler.bind(this)(ev);
