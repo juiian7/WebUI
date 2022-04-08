@@ -20,13 +20,13 @@ class Img extends Base<HTMLImageElement> {
         return this;
     }
 
-    public width(width: number) {
-        this.HTML.width = width;
+    public width(width: string) {
+        this.HTML.style.width = width;
         return this;
     }
 
-    public height(height: number) {
-        this.HTML.height = height;
+    public height(height: string) {
+        this.HTML.style.height = height;
         return this;
     }
 }
