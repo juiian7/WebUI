@@ -8,4 +8,9 @@ class GenericElement<T extends HTMLElement> extends Base<T> {
     constructor(tagname: keyof HTMLElementTagNameMap, ...children: Elem[]) {
         super(tagname, ...children);
     }
+
+    public attribte(name: string, value: string) {
+        this.HTML[name] = value;
+        return this;
+    }
 }
