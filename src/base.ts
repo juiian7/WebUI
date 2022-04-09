@@ -27,6 +27,7 @@ export default abstract class Base<T extends HTMLElement> {
     }
 
     public append(...children: Elem[]) {
+        children = children.filter((e) => (e as any) !== false);
         this._children.push(...children);
 
         this.render();
@@ -50,6 +51,11 @@ export default abstract class Base<T extends HTMLElement> {
 
     public color(color: string) {
         this._style.color = color;
+        return this;
+    }
+
+    public class(...classes: string[]) {
+        this._htmlElement.classList.add(...classes);
         return this;
     }
 
