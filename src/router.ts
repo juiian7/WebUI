@@ -131,6 +131,15 @@ class Router {
     }
 }
 
+const pageRouter = new Router();
+var isEnabled = false;
+
+export function useRouter(state: boolean = true) {
+    isEnabled = state;
+
+    return router();
+}
+
 export function router(): Router {
-    return new Router();
+    return isEnabled ? pageRouter : null;
 }

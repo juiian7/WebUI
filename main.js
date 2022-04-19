@@ -1,7 +1,6 @@
-import { button, div, h1, h2, span, p, dynamic, input, form, list, router, update } from "./dist/index.js";
+import { button, div, h1, h2, span, p, dynamic, input, form, list, router, useRouter, update, link } from "./dist/index.js";
 
 let counter = 0;
-let pageRouter = router();
 
 let todos = [];
 let todo = "";
@@ -11,6 +10,7 @@ function addTodo() {
     todo = "";
 }
 let todoComponent = div(
+    link("<- Home", "/"),
     h1("Todos"),
     dynamic(
         () =>
@@ -25,7 +25,7 @@ let todoComponent = div(
         () => [todos]
     ),
     dynamic(
-        () => list(todos.map((todo) => p(todo))),
+        () => list(todos.map((todo) => div(link(todo, "/todo/" + todo + "/info?param1=test&hello=world")))),
         () => [todos]
     )
 );
@@ -54,11 +54,15 @@ let rootDiv = div(
 
     button("Reset").on("click", () => window.confirm("You sure?") && (counter = 0)),
 
-    div(button("Todo's").on("click", () => pageRouter.redirect("/todo")))
+    div(button("Todo's").on("click", () => router().redirect("/todo"))),
+
+    div(link('Own link: "/todo?items=apple,banana"', "/todo?items=apple,banana")),
+    div(link("GitHub link", "https://github.com/juiian7/WebUI"))
 );
 
-pageRouter
-    .on("/", rootDiv)
+useRouter().on("/", rootDiv);
+
+router()
     .on("/todo", (params) => {
         if (params["items"]) {
             params["items"].split(",").forEach((item) => {
@@ -72,9 +76,15 @@ pageRouter
         return todoComponent;
     })
     .on("/todo/:item/info", (params, vars) => {
-        console.log(params, vars);
+        let e = div(h1(vars["item"]));
 
-        return h1("yikes");
+        for (const key in params) {
+            e.append(p(key + ": " + params[key]));
+        }
+
+        e.append(link("<- back", "/todo/"));
+
+        return e;
     })
     .sync();
 
