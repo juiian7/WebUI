@@ -1,6 +1,7 @@
-import { button, div, h1, h2, span, p, dynamic, input, form, list } from "./dist/index.js";
+import { button, div, h1, h2, span, p, dynamic, input, form, list, router, update } from "./dist/index.js";
 
 let counter = 0;
+let pageRouter = router();
 
 let todos = [];
 let todo = "";
@@ -52,7 +53,29 @@ let rootDiv = div(
         .color("#44DD44"),
 
     button("Reset").on("click", () => window.confirm("You sure?") && (counter = 0)),
-    todoComponent
+
+    div(button("Todo's").on("click", () => pageRouter.redirect("/todo")))
 );
 
-document.body.append(rootDiv.HTML);
+pageRouter
+    .on("/", rootDiv)
+    .on("/todo", (params) => {
+        if (params["items"]) {
+            params["items"].split(",").forEach((item) => {
+                todo = item;
+                addTodo();
+            });
+        }
+
+        console.log(todos);
+        update();
+        return todoComponent;
+    })
+    .on("/todo/:item/info", (params, vars) => {
+        console.log(params, vars);
+
+        return h1("yikes");
+    })
+    .sync();
+
+//document.body.append(rootDiv.HTML);

@@ -17,3 +17,5 @@ export { list } from "./Components/list.js";
 export { element } from "./Components/element.js";
 
 export { dynamic, update } from "./dynamic.js";
+
+export { router } from "./router.js";
