@@ -1,13 +1,4 @@
-import { button, div, h1, h2, span, p, dynamic, theme } from "./dist/index.js";
-
-const rootTheme = theme().color("#efefef").background("#030303");
-
-/*const buttonTheme = rootTheme
-    .clone()
-    .border("solid", "1px", "#fff")
-    .borderRadius("5px")
-    .hover((t) => t.color("#fff").background("#000"));
-*/
+import { button, div, h1, h2, span, p, dynamic, theme, preset, color, setPageTheme } from "./dist/index.js";
 
 let counter = 0;
 
@@ -15,7 +6,7 @@ let rootDiv = div(
     h1("Hoi!"),
     h2("Hoi2!"),
 
-    span("Red text here :)"), //.color("red"),
+    span("Red text here :)").color("red"),
 
     p("This is a paragraph.").on("dblclick", () => alert("Hello Universe")),
 
@@ -30,12 +21,18 @@ let rootDiv = div(
 
         counter++;
     }),
-    //.apply(buttonTheme),
 
     button("Reset").on("click", () => window.confirm("You sure?") && (counter = 0))
-    //.apply(buttonTheme)
-).applyTheme(rootTheme);
+); //.applyTheme(preset("light"), true, true);
 
 document.body.append(rootDiv.HTML);
 
-rootTheme.applyOn(document.body);
+//setPageTheme(preset("blue").setRule("margin", "0px", "body"));
+
+/*let i = 0;
+let themes = ["light", "dark"];
+setInterval(() => {
+    i++;
+    if (i >= themes.length) i = 0;
+    setPageTheme(preset(themes[i]));
+}, 1000);*/

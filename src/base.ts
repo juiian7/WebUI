@@ -1,5 +1,5 @@
 import { update } from "./dynamic.js";
-import { Theme } from "./theme.js";
+import { getPageTheme, onPageThemeChangeCallbacks, Theme } from "./theme/theme.js";
 
 export type Elem = Base<HTMLElement> | Node | string;
 
@@ -12,7 +12,8 @@ export default abstract class Base<T extends HTMLElement> {
     private _htmlElement: T;
     private _htmlType: string;
 
-    private _theme: Theme;
+    private _pageTheme: Theme = null;
+    private _theme: Theme = null;
 
     protected _children: Elem[] = [];
 
@@ -26,9 +27,18 @@ export default abstract class Base<T extends HTMLElement> {
         this._htmlType = htmlType;
         this._htmlElement = document.createElement(this._htmlType) as T;
 
-        this._theme = new Theme();
-
         this.append(...children);
+
+        this._pageTheme = getPageTheme();
+        onPageThemeChangeCallbacks.push(this.onPageThemeChange.bind(this));
+
+        this.applyTheme(this._theme);
+    }
+
+    private onPageThemeChange(newPageTheme: Theme) {
+        this._pageTheme = newPageTheme;
+
+        this.applyTheme(this._theme);
     }
 
     public append(...children: Elem[]) {
@@ -58,11 +68,6 @@ export default abstract class Base<T extends HTMLElement> {
         return this;
     }
 
-    width(width: string) {
-        this._style.width = width;
-        return this;
-    }
-
     on(type: keyof HTMLElementEventMap, handler: (this: Base<T>, ev: Event) => void) {
         this._htmlElement.addEventListener(type, (ev) => {
             handler.bind(this)(ev);
@@ -71,10 +76,22 @@ export default abstract class Base<T extends HTMLElement> {
         return this;
     }
 
-    public applyTheme(theme: Theme) {
+    public applyTheme(theme: Theme = null, includeChildren: boolean = true, overwrite: boolean = false) {
         this._theme = theme;
 
-        this._theme.applyOn(this._htmlElement);
+        this._pageTheme.applyOn(this._htmlElement, false);
+        if (this._theme) this._theme.applyOn(this._htmlElement, overwrite);
+
+        if (includeChildren) {
+            this._children.forEach((e: Elem) => {
+                if (e instanceof Base) {
+                    e.applyTheme(theme, true, overwrite);
+                } else if (e instanceof Node) {
+                    this._pageTheme.applyOn(e.parentElement, false);
+                    if (this._theme) this._theme.applyOn(e.parentElement, overwrite);
+                }
+            });
+        }
 
         return this;
     }
