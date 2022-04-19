@@ -58,7 +58,7 @@ class Router {
     private getMatch(path): RouterMatch {
         let p = this.getPath(path);
 
-        // gather parameter
+        // get parameters
         let params = {};
         if (path.includes("?")) {
             for (const keyval of path.split("?")[1].split("&")) {
@@ -67,7 +67,7 @@ class Router {
             }
         }
 
-        // does exist
+        // does path exist
         if (this.pages[p]) {
             return {
                 page: this.pages[p],
@@ -77,7 +77,7 @@ class Router {
             };
         }
 
-        // contains vars
+        // contains path vars
         let masks = Object.keys(this.pages).filter((path) => path.includes(":"));
         for (const mask of masks) {
             let dirs = p.split("/");

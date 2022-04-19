@@ -1,36 +1,7 @@
 import { button, div, h1, h2, span, p, dynamic, input, form, list, router, useRouter, update, link } from "./dist/index.js";
 
 let counter = 0;
-
-let todos = [];
-let todo = "";
-
-function addTodo() {
-    todos = [...todos, todo];
-    todo = "";
-}
-let todoComponent = div(
-    link("<- Home", "/"),
-    h1("Todos"),
-    dynamic(
-        () =>
-            form(
-                input(todo)
-                    .on("change", (e) => (todo = e.target.value))
-                    .focus(),
-                button("Add todo").type("submit")
-            )
-                .noDefault()
-                .on("submit", addTodo),
-        () => [todos]
-    ),
-    dynamic(
-        () => list(todos.map((todo) => div(link(todo, "/todo/" + todo + "/info?param1=test&hello=world")))),
-        () => [todos]
-    )
-);
-
-let rootDiv = div(
+let mainPage = div(
     h1("Hoi!"),
     h2("Hoi2!"),
 
@@ -60,8 +31,37 @@ let rootDiv = div(
     div(link("GitHub link", "https://github.com/juiian7/WebUI"))
 );
 
-useRouter().on("/", rootDiv);
+let todos = [];
+let todo = "";
+function addTodo() {
+    todos = [...todos, todo];
+    todo = "";
+}
+let todoPage = div(
+    link("<- Home", "/"),
+    h1("Todos"),
+    dynamic(
+        () =>
+            form(
+                input(todo)
+                    .on("change", (e) => (todo = e.target.value))
+                    .focus(),
+                button("Add todo").type("submit")
+            )
+                .noDefault()
+                .on("submit", addTodo),
+        () => [todos]
+    ),
+    dynamic(
+        () => list(todos.map((todo) => div(link(todo, "/todo/" + todo + "/info?param1=test&hello=world")))),
+        () => [todos]
+    )
+);
 
+// setup router
+useRouter().on("/", mainPage);
+
+// access router
 router()
     .on("/todo", (params) => {
         if (params["items"]) {
@@ -73,7 +73,7 @@ router()
 
         console.log(todos);
         update();
-        return todoComponent;
+        return todoPage;
     })
     .on("/todo/:item/info", (params, vars) => {
         let e = div(h1(vars["item"]));
@@ -86,6 +86,5 @@ router()
 
         return e;
     })
+    // redirect to active page
     .sync();
-
-//document.body.append(rootDiv.HTML);
