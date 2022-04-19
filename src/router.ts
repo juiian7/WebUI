@@ -117,7 +117,7 @@ class Router {
     private getPath(path: string): string {
         if (path.includes("?")) path = path.split("?")[0];
 
-        if (path.endsWith("/")) path = path.substring(0, path.length - 1);
+        if (path.endsWith("/") || path.endsWith("/index.html")) path = path.substring(0, path.lastIndexOf("/"));
 
         // if "/"
         if (path.length == 0) path = "/";
