@@ -4,7 +4,8 @@
   "description": "",
   "scripts": {
     "dev": "tsc -w",
-    "build": "rimraf dist/ && rollup --config rollup.config.js"  
+    "vite": "vite",
+    "build": "rimraf dist/ && rollup --config rollup.config.js"
   },
   "contributors": [
     "ZupaJul",
@@ -18,7 +19,8 @@
     "rimraf": "^3.0.2",
     "rollup": "^2.70.1",
     "rollup-plugin-dts": "^4.2.0",
-    "typescript": "~4.6.3"
+    "typescript": "~4.6.3",
+    "vite": "^2.9.5"
   },
   "prettier": {
     "singleQuote": false,
