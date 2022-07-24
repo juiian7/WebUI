@@ -1,4 +1,4 @@
-export { div } from "./Components/div.js";
+export { div, vbox, hbox } from "./Components/div.js";
 
 export { h1 } from "./Components/h1.js";
 export { h2 } from "./Components/h2.js";
