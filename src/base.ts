@@ -66,4 +66,19 @@ export default abstract class Base<T extends HTMLElement> {
         });
         return this;
     }
+
+    public id(id: string) {
+        this._htmlElement.id = id;
+        return this;
+    }
+
+    public attribute(name: string, value?: string) {
+        this._htmlElement.setAttribute(name, value ?? "");
+        return this;
+    }
+
+    public style(name: keyof CSSStyleDeclaration, value: string) {
+        this._htmlElement.style[name as string] = value;
+        return this;
+    }
 }
