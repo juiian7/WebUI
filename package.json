@@ -15,18 +15,9 @@
   "license": "LGPL-3.0",
   "devDependencies": {
     "@rollup/plugin-typescript": "^8.3.1",
-    "prettier": "^2.6.2",
     "rimraf": "^3.0.2",
     "rollup": "^2.70.1",
     "rollup-plugin-dts": "^4.2.0",
-    "typescript": "~4.6.3",
-    "vite": "^2.9.5"
-  },
-  "prettier": {
-    "singleQuote": false,
-    "tabWidth": 4,
-    "printWidth": 160,
-    "trailingComma": "es5",
-    "endOfLine": "auto"
+    "typescript": "~4.6.3"
   }
 }

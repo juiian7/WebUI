@@ -20,6 +20,7 @@ export default [
         output: {
             file: "dist/index.d.ts",
             format: "es",
+            sourcemap: dev,
         },
         plugins: [dts()],
     },
