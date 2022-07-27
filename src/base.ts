@@ -9,7 +9,7 @@ interface Event {
 
 export default abstract class Base<T extends HTMLElement> {
     private _htmlElement: T;
-    private _htmlType: string;
+    private _htmlType: keyof HTMLElementTagNameMap;
     protected _children: Elem[] = [];
 
     protected get _style(): CSSStyleDeclaration {
@@ -18,7 +18,7 @@ export default abstract class Base<T extends HTMLElement> {
 
     // protected _events: Event[];
 
-    constructor(htmlType: string, ...children: Elem[]) {
+    constructor(htmlType: keyof HTMLElementTagNameMap, ...children: Elem[]) {
         this._htmlType = htmlType;
 
         this._htmlElement = document.createElement(this._htmlType) as T;
@@ -27,6 +27,7 @@ export default abstract class Base<T extends HTMLElement> {
     }
 
     public append(...children: Elem[]) {
+        children = children.filter((e) => (e as any) !== false);
         this._children.push(...children);
 
         this.render();
@@ -44,25 +45,63 @@ export default abstract class Base<T extends HTMLElement> {
         });
     }
 
-    get HTML(): T {
+    public get HTML(): T {
         return this._htmlElement;
     }
 
-    color(color: string) {
+    public color(color: string) {
         this._style.color = color;
         return this;
     }
 
-    width(width: string) {
-        this._style.width = width;
+    public class(...classes: string[]) {
+        this._htmlElement.classList.add(...classes);
         return this;
     }
 
-    on(type: keyof HTMLElementEventMap, handler: (this: Base<T>, ev: Event) => void) {
+    public align(type: "left" | "right" | "center") {
+        this._style.textAlign = type;
+        return this;
+    }
+
+    public margin(margin: string) {
+        this._style.margin = margin;
+        return this;
+    }
+
+    public padding(padding: string) {
+        this._style.padding = padding;
+        return this;
+    }
+
+    public on(type: keyof HTMLElementEventMap, handler: (this: Base<T>, ev: Event) => void) {
         this._htmlElement.addEventListener(type, (ev) => {
             handler.bind(this)(ev);
             update();
         });
         return this;
+    }
+
+    public id(id: string) {
+        this._htmlElement.id = id;
+        return this;
+    }
+
+    public attribute(name: string, value?: string) {
+        this._htmlElement.setAttribute(name, value ?? "");
+        return this;
+    }
+
+    public style(name: keyof CSSStyleDeclaration, value: string) {
+        this._htmlElement.style[name as string] = value;
+        return this;
+    }
+
+    public bold() {
+        return this.style("fontWeight", "bold");
+    }
+
+    public italic() {
+        return this.style("fontStyle", "italic");
     }
 }
