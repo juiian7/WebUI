@@ -11,7 +11,7 @@ interface IRegistrations {
     oldRender: Base<HTMLElement>;
 }
 
-export function dynamic(render: () => Base<HTMLElement>, dependencies: () => any[]) {
+export function dynamic(render: () => Base<HTMLElement>, dependencies: () => vars[]) {
     let registration = {
         render,
         dependencies,

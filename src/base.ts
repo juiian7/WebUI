@@ -96,4 +96,12 @@ export default abstract class Base<T extends HTMLElement> {
         this._htmlElement.style[name as string] = value;
         return this;
     }
+
+    public bold() {
+        return this.style("fontWeight", "bold");
+    }
+
+    public italic() {
+        return this.style("fontStyle", "italic");
+    }
 }
