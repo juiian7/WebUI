@@ -1,11 +1,9 @@
-import { button, div, h1, h2, span, p, dynamic, input, form, list, router, useRouter, update, link } from "./dist/index.js";
+import { button, div, hbox, vbox, h1, h2, span, p, dynamic, input, form, list, router, useRouter, update, link } from "./dist/index.js";
 
 let counter = 0;
-let mainPage = div(
-    h1("Hoi!"),
-    h2("Hoi2!"),
-
-    span("Red text here :)").color("red"),
+let mainPage = vbox(
+    hbox(h1("Hoi!"), h2("Hoi2!")),
+    span("Red text here :)").color("red").align("center"),
 
     p("This is a paragraph.").on("dblclick", () => alert("Hello Universe")),
 
@@ -14,22 +12,28 @@ let mainPage = div(
         () => [counter]
     ),
 
-    button("Click me!")
-        .on("click", function () {
-            console.log(this);
-            this.color("blue");
+    hbox(
+        button("Click me!")
+            .on("click", function () {
+                console.log(this);
+                this.color("blue");
 
-            counter++;
-        })
-        .color("#44DD44"),
+                counter++;
+            })
+            .color("#44DD44"),
 
-    button("Reset").on("click", () => window.confirm("You sure?") && (counter = 0)),
+        button("Reset").on("click", () => window.confirm("You sure?") && (counter = 0))
+    )
+        .width("fit-content")
+        .align("center"),
 
     div(button("Todo's").on("click", () => router().redirect("/todo"))),
 
     div(link('Own link: "/todo?items=apple,banana"', "/todo?items=apple,banana")),
     div(link("GitHub link", "https://github.com/juiian7/WebUI"))
-);
+)
+    .width("clamp(460px, 100%, 860px)")
+    .padding("auto");
 
 let todos = [];
 let todo = "";

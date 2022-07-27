@@ -13,4 +13,9 @@ class Button extends Base<HTMLButtonElement> {
         this.HTML.type = type;
         return this;
     }
+
+    public width(w: string) {
+        this._style.width = w;
+        return this;
+    }
 }

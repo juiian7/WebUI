@@ -59,6 +59,21 @@ export default abstract class Base<T extends HTMLElement> {
         return this;
     }
 
+    public align(type: "left" | "right" | "center") {
+        this._style.textAlign = type;
+        return this;
+    }
+
+    public margin(margin: string) {
+        this._style.margin = margin;
+        return this;
+    }
+
+    public padding(padding: string) {
+        this._style.padding = padding;
+        return this;
+    }
+
     public on(type: keyof HTMLElementEventMap, handler: (this: Base<T>, ev: Event) => void) {
         this._htmlElement.addEventListener(type, (ev) => {
             handler.bind(this)(ev);
