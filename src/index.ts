@@ -20,3 +20,5 @@ export { element } from "./Components/element.js";
 export { dynamic, update } from "./dynamic.js";
 
 export { router, useRouter } from "./router.js";
+
+export { grid } from "./Components/grid.js";
