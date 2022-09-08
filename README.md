@@ -43,7 +43,7 @@ document.body.append(element("p", "^ My custom html element").HTML);
 To build more complex structures you can nest elements with a declarative syntax.
 
 ```js
-import { h1, form, input } from "./webui.js";
+import { div, element, form, h1, input } from "../../dist/index.js";
 
 document.body.append(
     div(
@@ -59,7 +59,7 @@ document.body.append(
             .on("submit", function (ev) {
                 let name = ev.target.querySelector("#tbxName").value;
 
-                // to sth.
+                // do something...
             })
             .noDefault()
     ).HTML
