@@ -14,6 +14,8 @@ document.body.append(
             .on("submit", function (ev) {
                 let name = ev.target.querySelector("#tbxName").value;
 
+                alert(name);
+
                 // do something...
             })
             .noDefault()
