@@ -9,11 +9,11 @@ class Span extends Base<HTMLSpanElement> {
         super("span", texContent, ...params);
     }
 
-    get textContent() {
+    public get textContent() {
         return this.HTML.textContent;
     }
 
-    set textContent(value: string) {
+    public set textContent(value: string) {
         if (this._children[0]) this._children[0] = value;
         else this._children = [value];
     }
