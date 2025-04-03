@@ -11,22 +11,22 @@ class Img extends Base<HTMLImageElement> {
     }
 
     public src(src: string) {
-        this.HTML.src = src;
+        this.attribute("src", src);
         return this;
     }
 
     public alt(alt: string) {
-        this.HTML.alt = alt;
+        this.attribute("alt", alt);
         return this;
     }
 
     public width(width: string) {
-        this.HTML.style.width = width;
+        this.style("width", width);
         return this;
     }
 
     public height(height: string) {
-        this.HTML.style.height = height;
+        this.style("height", height);
         return this;
     }
 }

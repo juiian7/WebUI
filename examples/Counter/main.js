@@ -1,8 +1,8 @@
-import { button, div, dynamic, h1, p } from "../../dist/index.js";
+import { button, div, dynamic, h1, p, wrap } from "../../dist/index.js";
 
 let counter = 0;
 
-document.body.append(
+wrap(document.body).append(
     div(
         h1("Clicker"),
         dynamic(
@@ -12,5 +12,5 @@ document.body.append(
         button("Click Me").on("click", function () {
             counter++;
         })
-    ).HTML
+    )
 );

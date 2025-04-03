@@ -11,19 +11,21 @@ export class Grid extends Base<HTMLDivElement> {
     }
 
     public columns(columnList: string) {
-        this._style.gridTemplateColumns = columnList;
+        this.style("gridTemplateColumns", columnList);
         return this;
     }
 
     public justifyContent(justifyContent: string) {
-        this._style.justifyContent = justifyContent;
+        this.style("justifyContent", justifyContent);
         return this;
     }
     public alignContent(alignContent: string) {
-        this._style.alignContent = alignContent;
+        this.style("alignContent", alignContent);
         return this;
     }
     public gap(gap: string) {
+        this.style("gap", gap);
+
         this._style.gap = gap;
         return this;
     }

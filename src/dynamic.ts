@@ -32,7 +32,7 @@ export function update() {
     // render registration on correct position
     for (const registration of changes) {
         let render = registration.render();
-        registration.oldRender.HTML.parentNode.replaceChild(render.HTML, registration.oldRender.HTML);
+        registration.oldRender.replace(render);
         registration.oldRender = render;
     }
 
@@ -47,7 +47,7 @@ export function forceUpdate() {
     // render registration on correct position
     for (const registration of registrations) {
         let render = registration.render();
-        registration.oldRender.HTML.parentNode.replaceChild(render.HTML, registration.oldRender.HTML);
+        registration.oldRender.replace(render);
         registration.oldRender = render;
     }
 }

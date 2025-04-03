@@ -1,11 +1,6 @@
 import { update } from "./dynamic.js";
 
-export type Elem = Base<HTMLElement> | Node | string;
-
-interface Event {
-    type: keyof HTMLElementEventMap;
-    handler: (this: HTMLElement, ev: Event) => void;
-}
+export type Elem<T extends HTMLElement = HTMLElement> = Base<T> | Node | string;
 
 export default abstract class Base<T extends HTMLElement> {
     private _htmlElement: T;
@@ -16,37 +11,53 @@ export default abstract class Base<T extends HTMLElement> {
         return this._htmlElement.style;
     }
 
+    public get textContent() {
+        return this._htmlElement.textContent;
+    }
+
+    public set textContent(value: string) {
+        this._htmlElement.textContent = value;
+    }
+
     // protected _events: Event[];
 
-    constructor(htmlType: keyof HTMLElementTagNameMap, ...children: Elem[]) {
-        this._htmlType = htmlType;
+    constructor(element: T, ...children: Elem[]);
+    constructor(htmlType: keyof HTMLElementTagNameMap, ...children: Elem[]);
+    constructor(...args: any[]) {
+        if (typeof args[0] === "string") {
+            this._htmlType = args[0] as keyof HTMLElementTagNameMap;
+            this._htmlElement = document.createElement(this._htmlType) as T;
+        } else {
+            this._htmlElement = args[0] as T;
+            this._htmlType = this._htmlElement.tagName as any;
+        }
 
-        this._htmlElement = document.createElement(this._htmlType) as T;
-
-        this.append(...children);
+        this.append(...(args.slice(1) as any[]));
     }
 
     public append(...children: Elem[]) {
         children = children.filter((e) => (e as any) !== false);
         this._children.push(...children);
 
-        this.render();
-    }
-
-    private render() {
-        // append children
-        this._htmlElement.innerHTML = "";
-        this._children.forEach((e: Elem) => {
+        children.forEach((e: Elem) => {
             if (e instanceof Base) {
-                this._htmlElement.append(e.HTML);
+                this._htmlElement.append(e._htmlElement);
             } else if (e instanceof Node || typeof e === "string") {
                 this._htmlElement.append(e);
             }
         });
     }
 
-    public get HTML(): T {
-        return this._htmlElement;
+    public replace(other: Elem) {
+        if (other instanceof Base) {
+            this._htmlElement.replaceWith(other._htmlElement);
+        } else if (other instanceof Node || typeof other === "string") {
+            this._htmlElement.replaceWith(other);
+        }
+    }
+
+    public text(text: string) {
+        this.textContent = text;
     }
 
     public color(color: string) {
@@ -74,9 +85,9 @@ export default abstract class Base<T extends HTMLElement> {
         return this;
     }
 
-    public on(type: keyof HTMLElementEventMap, handler: (this: Base<T>, ev: Event) => void) {
+    public on<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => void) {
         this._htmlElement.addEventListener(type, (ev) => {
-            handler.bind(this)(ev);
+            listener.bind(this)(ev);
             update();
         });
         return this;
@@ -92,16 +103,22 @@ export default abstract class Base<T extends HTMLElement> {
         return this;
     }
 
+    public getAttribute(name: string) {
+        return this._htmlElement.getAttribute(name);
+    }
+
     public style(name: keyof CSSStyleDeclaration, value: string) {
         this._htmlElement.style[name as string] = value;
         return this;
     }
 
-    public bold() {
-        return this.style("fontWeight", "bold");
+    public focus() {
+        this._htmlElement.focus();
+        return this;
     }
 
-    public italic() {
-        return this.style("fontStyle", "italic");
+    public blur() {
+        this._htmlElement.blur();
+        return this;
     }
 }

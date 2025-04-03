@@ -25,19 +25,10 @@ class Link extends Base<HTMLLinkElement> {
     }
 
     public get href() {
-        return this.HTML.href;
+        return this.getAttribute("href");
     }
 
     public set href(value: string) {
-        this.HTML.href = value;
-    }
-
-    public get textContent() {
-        return this.HTML.textContent;
-    }
-
-    public set textContent(value: string) {
-        if (this._children[0]) this._children[0] = value;
-        else this._children = [value];
+        this.attribute("href", value);
     }
 }

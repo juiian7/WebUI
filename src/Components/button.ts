@@ -9,8 +9,8 @@ class Button extends Base<HTMLButtonElement> {
         super("button", texContent);
     }
 
-    public type(type: string) {
-        this.HTML.type = type;
+    public type(type: "button" | "submit" | "reset") {
+        this.attribute("type", type);
         return this;
     }
 

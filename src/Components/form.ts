@@ -11,17 +11,17 @@ class Form extends Base<HTMLFormElement> {
     }
 
     public action(action: string) {
-        this.HTML.action = action;
+        this.attribute("action", action);
         return this;
     }
 
     public method(method: string) {
-        this.HTML.method = method;
+        this.attribute("method", method);
         return this;
     }
 
     public noDefault() {
-        this.HTML.addEventListener("submit", (e) => e.preventDefault());
+        this.on("submit", (e) => e.preventDefault());
         return this;
     }
 }

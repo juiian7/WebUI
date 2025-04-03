@@ -45,7 +45,7 @@ class Router {
         // clear and append new content
         document.body.innerHTML = "";
         if (match.page instanceof Base) {
-            document.body.append(match.page.HTML);
+            //document.body.append(match.page.HTML); TOFIX
         } else if (match.page instanceof Node || typeof match.page === "string") {
             document.body.append(match.page);
         }

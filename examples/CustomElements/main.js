@@ -1,4 +1,4 @@
-import { element } from "../../dist/index.js";
+import { element, wrap } from "../../dist/index.js";
 
 class MyElement extends HTMLElement {
     constructor() {
@@ -12,6 +12,6 @@ class MyElement extends HTMLElement {
 
 window.customElements.define("my-element", MyElement);
 
-document.body.append(element("my-element").HTML);
+wrap(document.body).append(element("my-element"));
 
-document.body.append(element("p", "^ My custom html element").HTML);
+wrap(document.body).append(element("p", "^ My custom html element"));

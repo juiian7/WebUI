@@ -1,21 +1,21 @@
 import Base, { Elem } from "../base.js";
 
-const vboxCSS = ".vbox>*{display:block;}";
-const hboxCSS = ".hbox{display:flex;flex:direction:row;align-items:center;justify-content:space-evenly;}";
+const vsplitCSS = ".vsplit>*{display:block;}";
+const hsplitCSS = ".split,.hsplit{display:flex;flex:direction:row;align-items:center;justify-content:space-evenly;}";
 
 const style = document.createElement("style");
-style.innerHTML = vboxCSS + hboxCSS;
+style.innerHTML = vsplitCSS + hsplitCSS;
 document.getElementsByTagName("head")[0].append(style);
 
 export function div(...params: Elem[]) {
     return new Div(...params);
 }
 
-export function hbox(...children: Elem[]) {
+export function hsplit(...children: Elem[]) {
     return div(...children).class("hbox");
 }
 
-export function vbox(...children: Elem[]) {
+export function vsplit(...children: Elem[]) {
     return div(...children).class("vbox");
 }
 
