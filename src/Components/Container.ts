@@ -1,7 +1,7 @@
 import Base, { Elem } from "../base.js";
 
 const vsplitCSS = ".vsplit>*{display:block;}";
-const hsplitCSS = ".split,.hsplit{display:flex;flex:direction:row;align-items:center;justify-content:space-evenly;}";
+const hsplitCSS = ".split,.hsplit{display:flex;align-items:center;justify-content:space-evenly;}";
 
 const style = document.createElement("style");
 style.innerHTML = vsplitCSS + hsplitCSS;
@@ -59,8 +59,6 @@ export class Grid extends Container {
     }
     public gap(gap: string) {
         this.style("gap", gap);
-
-        this._style.gap = gap;
         return this;
     }
 }

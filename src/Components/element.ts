@@ -4,8 +4,8 @@ export function element<T extends HTMLElement>(tagname: keyof HTMLElementTagName
     return new Element<T>(tagname, ...children);
 }
 
-export function wrap<T extends HTMLElement>(element: T) {
-    return new Element<T>(element);
+export function wrap<T extends HTMLElement>(toWrap: T) {
+    return new Element<T>(toWrap);
 }
 
 export default class Element<T extends HTMLElement> extends Base<T> {}

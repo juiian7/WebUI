@@ -1,4 +1,5 @@
 import Element, { element, wrap } from "./Components/Element.js";
+import Style, { style, includeExternalStyleSheet } from "./Theme/Style.js";
 
 import Container, { div, container, vsplit, hsplit, grid } from "./Components/Container.js";
 
@@ -39,6 +40,7 @@ export {
     //
     element,
     wrap,
+    style,
     //
     dynamic,
     update,

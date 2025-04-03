@@ -15,7 +15,7 @@ export default class Button extends Base<HTMLButtonElement> {
     }
 
     public width(w: string) {
-        this._style.width = w;
+        this.style("width", w);
         return this;
     }
 }

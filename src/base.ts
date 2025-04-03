@@ -1,3 +1,5 @@
+import Rules from "./Theme/Rules.js";
+
 import { update } from "./dynamic.js";
 
 export type Elem<T extends HTMLElement = HTMLElement> = Base<T> | Node | string;
@@ -7,9 +9,7 @@ export default abstract class Base<T extends HTMLElement> {
     private _htmlType: keyof HTMLElementTagNameMap;
     protected _children: Elem[] = [];
 
-    protected get _style(): CSSStyleDeclaration {
-        return this._htmlElement.style;
-    }
+    protected _style: Rules = new Rules();
 
     public get textContent() {
         return this._htmlElement.textContent;
@@ -40,11 +40,8 @@ export default abstract class Base<T extends HTMLElement> {
         this._children.push(...children);
 
         children.forEach((e: Elem) => {
-            if (e instanceof Base) {
-                this._htmlElement.append(e._htmlElement);
-            } else if (e instanceof Node || typeof e === "string") {
-                this._htmlElement.append(e);
-            }
+            if (e instanceof Base) this._htmlElement.append(e._htmlElement);
+            else if (e instanceof Node || typeof e === "string") this._htmlElement.append(e);
         });
     }
 
@@ -61,7 +58,7 @@ export default abstract class Base<T extends HTMLElement> {
     }
 
     public color(color: string) {
-        this._style.color = color;
+        this.style("color", color);
         return this;
     }
 
@@ -71,17 +68,17 @@ export default abstract class Base<T extends HTMLElement> {
     }
 
     public align(type: "left" | "right" | "center") {
-        this._style.textAlign = type;
+        this.style("textAlign", type);
         return this;
     }
 
     public margin(margin: string) {
-        this._style.margin = margin;
+        this.style("margin", margin);
         return this;
     }
 
     public padding(padding: string) {
-        this._style.padding = padding;
+        this.style("padding", padding);
         return this;
     }
 
@@ -108,7 +105,8 @@ export default abstract class Base<T extends HTMLElement> {
     }
 
     public style(name: keyof CSSStyleDeclaration, value: string) {
-        this._htmlElement.style[name as string] = value;
+        this._style.rule(name, value);
+        this._style.apply(this._htmlElement);
         return this;
     }
 
