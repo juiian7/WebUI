@@ -5,7 +5,7 @@ export function link(texContent: string, url: string, ...params: Elem[]) {
     return new Link(texContent, url, ...params);
 }
 
-class Link extends Base<HTMLLinkElement> {
+export default class Link extends Base<HTMLLinkElement> {
     constructor(texContent: string, url: string, ...params: Elem[]) {
         super("a", texContent, ...params);
         this.href = url;

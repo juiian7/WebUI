@@ -1,14 +1,34 @@
 import Base, { Elem } from "../base.js";
 
 export function text(texContent: string, ...params: Elem[]) {
-    return new Span(texContent, ...params);
+    return new Text("span", texContent, ...params);
 }
 
 export function span(texContent: string, ...params: Elem[]) {
-    return new Span(texContent, ...params);
+    return new Text("span", texContent, ...params);
 }
 
-export abstract class Text<T extends HTMLElement> extends Base<T> {
+export function p(textContent: string, ...params: Elem[]): Base<HTMLParagraphElement> {
+    return new Text("p", textContent, ...params);
+}
+
+export function heading(textContent: string, size: 1 | 2 | 3 | 4 | 5 | 6 = 1, ...params: Elem[]) {
+    return new Text(("h" + size) as keyof HTMLElementTagNameMap, textContent, ...params);
+}
+
+export function h1(textContent: string, size: 1 | 2 | 3 | 4 | 5 | 6 = 1, ...params: Elem[]) {
+    return new Text("h1", textContent, ...params);
+}
+
+export function h2(textContent: string, size: 1 | 2 | 3 | 4 | 5 | 6 = 1, ...params: Elem[]) {
+    return new Text("h2", textContent, ...params);
+}
+
+export function h3(textContent: string, size: 1 | 2 | 3 | 4 | 5 | 6 = 1, ...params: Elem[]) {
+    return new Text("h3", textContent, ...params);
+}
+
+export default class Text<T extends HTMLElement> extends Base<T> {
     constructor(tag: keyof HTMLElementTagNameMap, texContent: string, ...params: Elem[]) {
         super(tag, texContent, ...params);
     }
@@ -19,11 +39,5 @@ export abstract class Text<T extends HTMLElement> extends Base<T> {
 
     public italic() {
         return this.style("fontStyle", "italic");
-    }
-}
-
-class Span extends Text<HTMLSpanElement> {
-    constructor(content: string, ...params: Elem[]) {
-        super("span", content, ...params);
     }
 }

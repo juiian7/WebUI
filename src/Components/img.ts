@@ -4,7 +4,7 @@ export function img(src: string) {
     return new Img(src);
 }
 
-class Img extends Base<HTMLImageElement> {
+export default class Img extends Base<HTMLImageElement> {
     constructor(src: string) {
         super("img");
         this.src(src);

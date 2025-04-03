@@ -4,7 +4,7 @@ export function form(...params: Elem[]) {
     return new Form(...params);
 }
 
-class Form extends Base<HTMLFormElement> {
+export default class Form extends Base<HTMLFormElement> {
     private _preventDefault = false;
     constructor(...params: Elem[]) {
         super("form", ...params);

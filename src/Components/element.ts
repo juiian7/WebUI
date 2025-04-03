@@ -8,4 +8,4 @@ export function wrap<T extends HTMLElement>(element: T) {
     return new Element<T>(element);
 }
 
-class Element<T extends HTMLElement> extends Base<T> {}
+export default class Element<T extends HTMLElement> extends Base<T> {}

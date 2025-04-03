@@ -1,23 +1,25 @@
 import Base from "../base.js";
 
 export function input(value: string = "") {
-    return new Input().value(value);
+    return new Input().set(value);
 }
 
-class Input extends Base<HTMLInputElement> {
-    public get val(): string {
-        return this.getAttribute("value");
+export default class Input extends Base<HTMLInputElement> {
+    public get value(): string {
+        //@ts-ignore
+        return this._htmlElement.value;
     }
 
-    public set val(v: string) {
-        this.value(v);
+    public set value(v: string) {
+        //@ts-ignore
+        this._htmlElement.value = v;
     }
 
     constructor() {
         super("input");
     }
 
-    public value(value: string) {
+    public set(value: string) {
         this.attribute("value", value);
         return this;
     }

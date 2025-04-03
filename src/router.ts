@@ -1,4 +1,4 @@
-import { h1 } from "./Components/h1.js";
+import { h1 } from "./Components/Text.js";
 import Base, { Elem } from "./base.js";
 
 type RouterElementBuilder = (params: { [name: string]: string }, vars: { [name: string]: string }) => Elem;
