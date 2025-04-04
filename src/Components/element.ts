@@ -1,11 +1,11 @@
 import Base, { Elem } from "../base.js";
 
-export function element<T extends HTMLElement>(tagname: string, ...children: Elem[]) {
-    return new GenericElement<T>(tagname, ...children);
+export function element<T extends HTMLElement>(tagname: keyof HTMLElementTagNameMap, ...children: Elem[]) {
+    return new Element<T>(tagname, ...children);
 }
 
-class GenericElement<T extends HTMLElement> extends Base<T> {
-    constructor(tagname: string, ...children: Elem[]) {
-        super(tagname, ...children);
-    }
+export function wrap<T extends HTMLElement>(toWrap: T) {
+    return new Element<T>(toWrap);
 }
+
+export default class Element<T extends HTMLElement> extends Base<T> {}

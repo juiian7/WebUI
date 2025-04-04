@@ -1,11 +1,58 @@
-export { div } from "./Components/div.js";
+import Element, { element, wrap } from "./Components/Element.js";
+import Style, { style, includeExternalStyleSheet } from "./Theme/Style.js";
 
-export { h1 } from "./Components/h1.js";
-export { h2 } from "./Components/h2.js";
+import Container, { div, container, vsplit, hsplit, grid } from "./Components/Container.js";
 
-export { p } from "./Components/p.js";
-export { span } from "./Components/span.js";
+import Text, { span, text, h1, h2, h3, p, heading } from "./Components/Text.js";
 
-export { button } from "./Components/button.js";
+import Form, { form } from "./Components/Form.js";
+import Button, { button } from "./Components/Button.js";
+import Input, { input } from "./Components/Input.js";
 
-export { dynamic, update } from "./dynamic.js";
+import Img, { img } from "./Components/Img.js";
+import Link, { link } from "./Components/Link.js";
+
+import { dynamic, update } from "./dynamic.js";
+
+import { router, useRouter } from "./router.js";
+
+export {
+    div,
+    container,
+    vsplit,
+    hsplit,
+    grid,
+    //
+    span,
+    text,
+    h1,
+    h2,
+    h3,
+    p,
+    heading,
+    //
+    form,
+    button,
+    input,
+    //
+    img,
+    link,
+    //
+    element,
+    wrap,
+    style,
+    //
+    dynamic,
+    update,
+};
+
+export const Comp = {
+    Element,
+    Container,
+    Text,
+    Form,
+    Button,
+    Input,
+    Img,
+    Link,
+};
