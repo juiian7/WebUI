@@ -1,4 +1,5 @@
 import Rules from "./Theme/Rules.js";
+import { theme } from "./Theme/Theme.js";
 
 import { update } from "./dynamic.js";
 
@@ -122,5 +123,11 @@ export default abstract class Base<T extends HTMLElement> {
 
     public dispatch(event: Event) {
         this._htmlElement.dispatchEvent(event);
+    }
+
+    public theme(preset: string) {
+        let t = theme(preset);
+        for (const name of t.keys()) this._htmlElement.style.setProperty("--" + name, t.get(name));
+        return this;
     }
 }

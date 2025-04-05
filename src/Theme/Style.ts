@@ -1,16 +1,7 @@
 import Base from "../base.js";
 import { element, wrap } from "../Components/Element.js";
 import Rules from "./Rules.js";
-
-const variables = {
-    "text-color": "#111",
-    surface: "#eee",
-    font: "helvetica",
-};
-
-function v(name: string) {
-    return variables[name];
-}
+import { theme } from "./Theme.js";
 
 export function style(preset?: keyof typeof presets): Style {
     if (preset === undefined) return new Style();
@@ -28,13 +19,23 @@ export default class Style extends Base<HTMLStyleElement> {
         super("style");
         this.attribute("type", "text/css");
 
+        this.theme("default");
         this.on("load", this.apply.bind(this));
     }
 
     private queue: string[] = [];
-    insertRule(selector: string, ...rules: Rules[]) {
+    public insertRule(selector: string, ...rules: Rules[]) {
         let rule = rules.map((r) => r.toCSS()).join();
         let css = `${selector}{${rule}}`;
+        //@ts-ignore
+        let sheet: CSSStyleSheet = this._htmlElement.sheet;
+        if (sheet) sheet.insertRule(css);
+        else this.queue.push(css);
+        return this;
+    }
+
+    public theme(preset: string) {
+        let css = `:root{${theme(preset).toCSS()}}`;
         //@ts-ignore
         let sheet: CSSStyleSheet = this._htmlElement.sheet;
         if (sheet) sheet.insertRule(css);
@@ -49,14 +50,18 @@ export default class Style extends Base<HTMLStyleElement> {
     }
 }
 
+function v(name: string) {
+    return `var(--${name})`;
+}
+
 const presets = {
     default: style()
         .insertRule(
-            "body",
+            "body,h1,h2,h3,div,span,input",
             new Rules() //
-                .rule("color", v("text-color"))
-                .rule("backgroundColor", v("surface"))
-                .rule("fontFamily", v("font"))
+                .rule("color", v("c-text"))
+                .rule("backgroundColor", v("c-surface"))
+                .rule("fontFamily", v("f-family"))
         )
-        .insertRule("input", new Rules().rule("fontSize", "1rem")),
+        .insertRule("input", new Rules().rule("fontSize", v("f-size"))),
 };
