@@ -33,4 +33,9 @@ export default class Input extends Base<HTMLInputElement> {
         this.attribute("type", type);
         return this;
     }
+
+    public select() {
+        //@ts-ignore
+        this._htmlElement.select();
+    }
 }

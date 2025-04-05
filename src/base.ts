@@ -119,4 +119,8 @@ export default abstract class Base<T extends HTMLElement> {
         this._htmlElement.blur();
         return this;
     }
+
+    public dispatch(event: Event) {
+        this._htmlElement.dispatchEvent(event);
+    }
 }
