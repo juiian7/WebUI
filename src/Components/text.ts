@@ -16,15 +16,15 @@ export function heading(textContent: string, size: 1 | 2 | 3 | 4 | 5 | 6 = 1, ..
     return new Text(("h" + size) as keyof HTMLElementTagNameMap, textContent, ...params);
 }
 
-export function h1(textContent: string, size: 1 | 2 | 3 | 4 | 5 | 6 = 1, ...params: Elem[]) {
+export function h1(textContent: string, ...params: Elem[]) {
     return new Text("h1", textContent, ...params);
 }
 
-export function h2(textContent: string, size: 1 | 2 | 3 | 4 | 5 | 6 = 1, ...params: Elem[]) {
+export function h2(textContent: string, ...params: Elem[]) {
     return new Text("h2", textContent, ...params);
 }
 
-export function h3(textContent: string, size: 1 | 2 | 3 | 4 | 5 | 6 = 1, ...params: Elem[]) {
+export function h3(textContent: string, ...params: Elem[]) {
     return new Text("h3", textContent, ...params);
 }
 

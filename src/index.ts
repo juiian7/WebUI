@@ -1,6 +1,7 @@
 import Element, { element, wrap } from "./Components/Element.js";
 import Style, { style, includeExternalStyleSheet } from "./Theme/Style.js";
 import Theme, { theme } from "./Theme/Theme.js";
+import Rules from "./Theme/Rules.js";
 
 import Container, { div, container, vsplit, hsplit, grid } from "./Components/Container.js";
 
@@ -46,15 +47,8 @@ export {
     //
     dynamic,
     update,
+    //
+    includeExternalStyleSheet,
 };
 
-export const Comp = {
-    Element,
-    Container,
-    Text,
-    Form,
-    Button,
-    Input,
-    Img,
-    Link,
-};
+export { Element, Container, Text, Form, Button, Input, Img, Link, Style, Theme, Rules };
