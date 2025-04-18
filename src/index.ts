@@ -1,3 +1,4 @@
+import { Elem } from "./base.js";
 import Element, { element, wrap } from "./Components/Element.js";
 import Style, { style, includeExternalStyleSheet } from "./Theme/Style.js";
 import Theme, { theme } from "./Theme/Theme.js";
@@ -51,4 +52,4 @@ export {
     includeExternalStyleSheet,
 };
 
-export { Element, Container, Text, Form, Button, Input, Img, Link, Style, Theme, Rules };
+export { Elem, Element, Container, Text, Form, Button, Input, Img, Link, Style, Theme, Rules };
