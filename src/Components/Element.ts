@@ -1,4 +1,4 @@
-import Base, { Elem } from "../base.js";
+import Base, { Elem } from "../Base.js";
 
 export function element<T extends HTMLElement>(tagname: keyof HTMLElementTagNameMap, ...children: Elem[]) {
     return new Element<T>(tagname, ...children);

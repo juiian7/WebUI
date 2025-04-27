@@ -1,4 +1,4 @@
-import Base from "../base.js";
+import Base from "../Base.js";
 import { element, wrap } from "../Components/Element.js";
 import Rules from "./Rules.js";
 import { theme } from "./Theme.js";

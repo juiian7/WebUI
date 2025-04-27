@@ -1,4 +1,4 @@
-import Base, { Elem } from "./base.js";
+import Base, { Elem } from "./Base.js";
 
 type vars = string | number | boolean;
 

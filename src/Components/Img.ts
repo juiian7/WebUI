@@ -1,4 +1,4 @@
-import Base from "../base.js";
+import Base from "../Base.js";
 
 export function img(src: string) {
     return new Img(src);

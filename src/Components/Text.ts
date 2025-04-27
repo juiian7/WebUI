@@ -1,4 +1,4 @@
-import Base, { Elem } from "../base.js";
+import Base, { Elem } from "../Base.js";
 
 export function text(texContent: string, ...params: Elem[]) {
     return new Text("span", texContent, ...params);

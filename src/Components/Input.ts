@@ -1,4 +1,4 @@
-import Base from "../base.js";
+import Base from "../Base.js";
 
 export function input(value: string = "") {
     return new Input().set(value);

@@ -1,4 +1,4 @@
-import Base, { Elem } from "../base.js";
+import Base, { Elem } from "../Base.js";
 
 export function button(texContent: string) {
     return new Button(texContent);

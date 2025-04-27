@@ -1,4 +1,4 @@
-import Base, { Elem } from "../base.js";
+import Base, { Elem } from "../Base.js";
 
 export function form(...params: Elem[]) {
     return new Form(...params);

@@ -1,4 +1,4 @@
-import { Elem } from "./base.js";
+import { Elem } from "./Base.js";
 import Element, { element, wrap } from "./Components/Element.js";
 import Style, { style, includeExternalStyleSheet } from "./Theme/Style.js";
 import Theme, { theme } from "./Theme/Theme.js";

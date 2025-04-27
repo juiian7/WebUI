@@ -1,4 +1,4 @@
-import Base, { Elem } from "../base.js";
+import Base, { Elem } from "../Base.js";
 
 const vsplitCSS = ".vsplit>*{display:block;}";
 const hsplitCSS = ".split,.hsplit{display:flex;align-items:center;justify-content:space-evenly;}";
